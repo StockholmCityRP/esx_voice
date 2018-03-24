@@ -18,7 +18,7 @@ function drawLevel(r, g, b, a)
   SetTextDropShadow()
   SetTextOutline()
   SetTextEntry("STRING")
-  AddTextComponentString("~y~Voice:~s~ " .. voice.level)
+  AddTextComponentString(_U('voice') .. voice.level)
   DrawText(0.175, 0.92)
 end
 
@@ -34,26 +34,26 @@ end)
 
 Citizen.CreateThread(function()
   while true do
-    Citizen.Wait(0)
+    Citizen.Wait(10)
     if IsControlJustPressed(1, 74) and IsControlPressed(1, 21) then
       voice.current = (voice.current + 1) % 3
       if voice.current == 0 then
         NetworkSetTalkerProximity(voice.default)
-        voice.level = "Normal"
+        voice.level = _U('normal')
       elseif voice.current == 1 then
         NetworkSetTalkerProximity(voice.shout)
-        voice.level = "Shout"
+        voice.level = _U('shout')
       elseif voice.current == 2 then
         NetworkSetTalkerProximity(voice.whisper)
-        voice.level = "Whisper"
+        voice.level = _U('whisper')
       end
     end
     if voice.current == 0 then
-      voice.level = "Normal"
+      voice.level = _U('normal')
     elseif voice.current == 1 then
-      voice.level = "Shout"
+      voice.level = _U('shout')
     elseif voice.current == 2 then
-      voice.level = "Whisper"
+      voice.level = _U('whisper')
     end
     if NetworkIsPlayerTalking(PlayerId()) then
       drawLevel(41, 128, 185, 255)
